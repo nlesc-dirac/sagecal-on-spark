@@ -37,7 +37,7 @@
 #include <casa/Arrays/Cube.h>
 
 
-using namespace casa;
+using namespace casacore;
 
 
 //void loadData(char *fname, bool avg=true);

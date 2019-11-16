@@ -52,7 +52,7 @@ namespace Cmd
     extern const char *File_imgrid;
     extern const char *File_wgrid;
     extern const char *file_qualifier; /* unique qualifier to image files names */
-    extern casa::String DataField; /* which column to image DATA/CORRECTED_DATA */
+    extern casacore::String DataField; /* which column to image DATA/CORRECTED_DATA */
     extern float UVscale; /* scale of uv coords to fit [-0.5,0.5] */
     extern float ImRes; /* pixel size, arcseconds */
     extern float PointingRef[2]; /* phase shifting direction */

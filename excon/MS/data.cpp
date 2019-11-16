@@ -26,7 +26,7 @@
 #include <casa/Arrays/MatrixMath.h>
 #include <tables/TaQL/TableParse.h> // old tables/Tables/
 
-using namespace casa;
+using namespace casacore;
 
 //initialize the data variables.
 iodata **Data::data = NULL;

@@ -2,8 +2,8 @@ OUTPUT=
 CXX=g++
 CXXFLAGS=-O3 -Wall -g
 
-CASA_LIBDIR=/opt/soft/casacore/lib
-CASA_INCDIR=-I/opt/soft/casacore/include/casacore -I/opt/soft/casacore/include
+CASA_LIBDIR=/usr/lib/x86_64-linux-gnu
+CASA_INCDIR=-I/usr/include/casacore
 CASA_LIBS=-lcasa_casa -lcasa_tables -lcasa_measures -lcasa_ms -lcfitsio
 
 LAPACK=-llapack -lblas -lgfortran -lpthread

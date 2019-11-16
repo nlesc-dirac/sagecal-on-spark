@@ -23,7 +23,7 @@
 #include <fitsio.h>
 #include <fitsio2.h>
 #include <largefft.h>
-using namespace casa;
+using namespace casacore;
 
 void 
 writeFITSW(char *fname, float *ptr, unsigned int w, unsigned int h, double delta, double *ref, double freq, double deltaf, float bscale, int stokes)

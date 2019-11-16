@@ -1,11 +1,13 @@
 CXX=g++
 CXXFLAGS=-O3 -Wall -g -fPIC
-LDFLAGS=-Wl,--rpath,/opt/soft/casacore/lib,--rpath,../lib
+# LDFLAGS=-Wl,--rpath,/var/lib/casacore,--rpath,../lib
+LDFLAGS=-Wl,--rpath,/usr/lib/x86_64-linux-gnu,--rpath,../lib
 JAVAC=javac
 JAVAH=javah
 
-CASA_LIBDIR=/opt/soft/casacore/lib
-CASA_INCDIR=-I/opt/soft/casacore/include/casacore -I/opt/soft/casacore/include -I/usr/local/include/casacore
+#CASA_LIBDIR=/var/lib/casacore
+CASA_LIBDIR=/usr/lib/x86_64-linux-gnu
+CASA_INCDIR=-I/usr/include/casacore
 CASA_LIBS=-lcasa_casa -lcasa_tables -lcasa_measures -lcasa_ms -lcfitsio
 
 LAPACK=-llapack -lblas -lgfortran -lpthread
@@ -13,7 +15,10 @@ LAPACK=-llapack -lblas -lgfortran -lpthread
 WCSI=-I/usr/include/wcslib
 WCSLIBS=-lwcs
 
+# JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 JAVAINC=-I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux
+HADOOP_CLASSPATH=$(shell /usr/bin/hadoop classpath)
+
 
 # glib
 GLIBI=-I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include/
@@ -49,7 +54,7 @@ snapshot.o:snapshot.cpp pthgridder.h
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<
 
 Driver.class:Driver.java
-	$(JAVAC) $<
+	$(JAVAC) -classpath $(HADOOP_CLASSPATH) $<
 Driver.h:Driver.class
 	$(JAVAH) $*
 Driver.o:Driver.cpp Driver.h
@@ -78,9 +83,9 @@ jar:Driver.class
 	@echo "Manifest-Version: 1.0" > manifest.txt
 	@echo "Main-Class: Driver" >> manifest.txt
 	@echo "Class-Path: ." >> manifest.txt
-	#@echo "Class-Path: /opt/dirac/excon/JAVA" >> manifest.txt
-	#@echo "Library-Path: /opt/dirac/excon/JAVA" >> manifest.txt
-	#@echo "Library-Path: /usr/local/lib/" >> manifest.txt
+	# @echo "Class-Path: /home/ubuntu/sagecal-on-spark/excon/JAVA" >> manifest.txt
+	# @echo "Library-Path: /home/ubuntu/sagecal-on-spark/excon/JAVA" >> manifest.txt
+	# @echo "Library-Path: /usr/local/lib/" >> manifest.txt
 	@echo "" >> manifest.txt
 	@jar cmfv manifest.txt Driver.jar $*
 	@rm -f manifest.txt
@@ -107,4 +112,4 @@ testjar:
 
 build: libs ms Driver.class Driver.h Driver.o libDriver.so jar
 test: testlib testjar
-all: build test
+all: build jar test
